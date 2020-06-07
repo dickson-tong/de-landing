@@ -22,11 +22,11 @@ const MenuItem = (props) => {
 const MidSection = (props) => {
   const {dir, picture, header, text, button} = props;
   return (
-    <section style={{justifyContent: 'space-between', backgroundColor: '#bfb1c4', padding: '63px 38px', display: 'flex', flexDirection: dir === 'left' ? 'row' : 'row-reverse'}}>
+    <section style={{justifyContent: 'space-between', backgroundColor: 'white', padding: '63px 38px', display: 'flex', flexDirection: dir === 'left' ? 'row' : 'row-reverse'}}>
       {picture}
-      <div>
-        <div style={{width: '300px', marginBottom: '16px', fontSize: '45px', fontWeight: 500, lineHeight: '55px', color: 'white'}}>{header}</div>
-        <div style={{marginBottom: '16px', fontSize: '16px', fontWeight: 300, color: 'white'}}>{text}</div>
+      <div style={{width: '400px'}}>
+        <div style={{width: '300px', marginBottom: '16px', fontSize: '45px', fontWeight: 500, lineHeight: '55px', color: 'black'}}>{header}</div>
+        <div style={{marginBottom: '16px', fontSize: '16px', fontWeight: 300, color: 'black'}}>{text}</div>
         <button>{button.text}</button>
       </div>
     </section>
@@ -37,11 +37,11 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/earn">
           <Home />
         </Route>
-        <Route exact path="/about">
-          <AboutUs />
+        <Route exact path="/advertise">
+          <Advertise />
         </Route>
         <Route></Route>
         <Route></Route>
@@ -67,36 +67,32 @@ const Home = () => {
       }}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100px'}}>
           <div style={{color: 'white', fontSize: '25px', fontWeight: 500, lineHeight: '36px'}}>Placeholder</div>
-          <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <MenuItem location="/earn">Earn</MenuItem>
-            <MenuItem location="/advertise">Advertise</MenuItem>
-            <MenuItem location="/about">About</MenuItem>
-            <MenuItem location="/contact">Contact</MenuItem>
-            <button style={{fontWeight: 500, padding: '14px 24px', backgroundColor: 'white', border: 'none'}}>Get Started</button>
-          </div>
         </div>
-        <div style={{width: '550px', display: 'flex', justifyContent: 'center', flexDirection: 'column', flexGrow: 1}}>
-          <div style={{color: 'white', fontSize: '45px', fontWeight: 500, marginBottom: '32px'}}>Find your happiness and learn to put it first.</div>
-          <div style={{color: 'white', textDecoration: 'underline'}}>Contact Us</div>
+        <div style={{width: '450px', display: 'flex', justifyContent: 'center', flexDirection: 'column', flexGrow: 1}}>
+          <div style={{color: 'white', fontSize: '45px', fontWeight: 500, marginBottom: '32px'}}>Make your retail space work for you.</div>
+          <div style={{color: 'white', textDecoration: 'underline'}}>Learn More</div>
         </div>
       </div>
       <section>
         <MidSection
-          header={'hello'}
-          text={'hello2'}
-          button={{text: 'boom'}}
+          header={'Advertise with us to increase your revenue'}
+          text={'Increase your business revenue by placing digital advertisements in your retail space, with no disruption.'}
+          button={{text: 'Join Us'}}
           dir={'left'}
-          picture={<img style={{width: '330px', height: '330px'}} src="https://images.squarespace-cdn.com/content/v1/5ced8e1d5fd4c700018dd761/1561907800739-KPLG47SEYE493UI2O24B/ke17ZwdGBToddI8pDm48kFJUfUdkPAb8vZTcpB4safF7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UWZdAke8JpxKFTaeg6hrNiTtIumxCxifilQCW2fkmb0_cxz3uI1UGDvEQ2oJMxabyw/Stocksy_txp824ffa5crXt000_Large_844920.jpg?format=1500w" />}
+          picture={<img style={{width: '45%', height: 'auto'}} src="https://media.discordapp.net/attachments/718995649550352689/719219692417581056/wallpaperflare.com_wallpaper_1.jpg?width=936&height=936" />}
         />
         <MidSection
-          header={'hello'}
-          text={'hello2'}
-          button={{text: 'boom'}}
+          header={'No work involved, just a bit of your space.'}
+          text={'We will source advertisements and parts necessary to display ads in your space. Earn up to 80% of the ad revenue.'}
+          button={{text: 'Learn More'}}
           dir={'right'}
-          picture={<img style={{width: '330px', height: '330px'}} src="https://images.squarespace-cdn.com/content/v1/5ced8e1d5fd4c700018dd761/1561907800739-KPLG47SEYE493UI2O24B/ke17ZwdGBToddI8pDm48kFJUfUdkPAb8vZTcpB4safF7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UWZdAke8JpxKFTaeg6hrNiTtIumxCxifilQCW2fkmb0_cxz3uI1UGDvEQ2oJMxabyw/Stocksy_txp824ffa5crXt000_Large_844920.jpg?format=1500w" />}
+          picture={<img style={{width: '45%', height: 'auto'}} src="https://cdn.discordapp.com/attachments/718995649550352689/719220796039626752/Untitled_3.jpg" />}
         />
       </section>
-      <footer style={{padding: '40px', display: 'flex', justifyContent: 'space-between'}}>
+      <section>
+        pricing
+      </section>
+      <footer style={{padding: '40px', display: 'flex', justifyContent: 'space-between', backgroundColor: '#e1e3ea'}}>
         <div>Slogan</div>
         <div>
           <div>About Us</div>
@@ -107,10 +103,9 @@ const Home = () => {
       </footer>
     </div>
   );
-  
 }
 
-const AboutUs = () => {
+const Advertise = () => {
   return (
     <div>About Us</div>
   );

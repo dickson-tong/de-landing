@@ -13,13 +13,13 @@ const EDMUND_GRAY = '#e1e3ea';
 
 const TH = (props) => {
   return (
-    <th style={{backgroundColor: EDMUND_GRAY}}>{props.children}</th>
+    <th style={{backgroundColor: EDMUND_GRAY, border: `1px ${EDMUND_GRAY} solid`, padding: '6px', fontSize: '20px'}}>{props.children}</th>
   );
 };
 
 const TD = (props) => {
   return (
-    <td>{props.children}</td>
+    <td {...props} style={{border: `1px ${EDMUND_GRAY} solid`,  padding: '6px', fontSize: '20px', ...props.$style}}>{props.children}</td>
   );
 };
 
@@ -116,24 +116,37 @@ const Earn = () => {
         />
       </section>
       <section style={{padding: '63px 38px'}}>
-        <table style={{borderCollapse: 'collapse'}}>
+        <div style={{width: '400px'}}>
+          <div style={{fontSize: '45px', color: 'black', marginBottom: '16px'}}>Plans</div>
+          <div style={{fontSize: '16px', color: 'black', marginBottom: '16px'}}>Find the plan that works best for you business.</div>
+        </div>
+        
+        <div style={{display: 'flex', marginBottom: '16px', justifyContent: 'space-between', width: '500px'}}>
+          
+        </div>
+
+        <table style={{borderCollapse: 'collapse', marginBottom: '32px'}}>
           <tr>
+            <TH></TH>
             <TH>Type</TH>
             <TH>You Keep</TH>
             <TH>Maintenance Cost</TH>
-            <TH>One-time Installation Fee</TH>
+            <TH>One-time Installation</TH>
           </tr>
           <tr>
-            <TD>Mounted digital display</TD>
-            <TD>80% of ad revenue</TD>
-            <TD>$5/mo.</TD>
-            <TD>$260-$460</TD>
+            <TD><img src="https://media.discordapp.net/attachments/718995649550352689/719380895911641150/hanging.jpg?width=936&height=936" style={{height: '200px', width: 'auto'}} /></TD>
+            <TD><div>Mounted digital display. We have different dimensions to fit in a variety of spaces.</div></TD>
+            <TD $style={{textAlign: 'center', width: '200px'}}>80% of ad revenue</TD>
+            <TD $style={{textAlign: 'center', width: '200px'}}>$5/mo.</TD>
+            <TD $style={{textAlign: 'center', width: '200px'}}>$260-$460*</TD>
           </tr>
           <tr>
-            <TD>Free-standing digital display</TD>
-            <TD colspan="3" style={{textAlign: 'center'}}>Coming soon</TD>
+            <TD><img src="https://media.discordapp.net/attachments/718995649550352689/719378446198767676/standing.jpg?width=936&height=936" style={{height: '200px', width: 'auto'}} /></TD>
+            <TD><div>Free-standing digital display. This gorgeous free standing display will enhance the appearance of your retail space.</div></TD>
+            <TD colspan="3" $style={{textAlign: 'center'}}>Coming soon</TD>
           </tr>
         </table>
+        <div style={{color: 'gray', fontSize: '12px'}}>* We will work with you to find the display size that fits the best with you space.</div>
       </section>
       <section style={{padding: '63px 38px'}}>
         contact section

@@ -3,11 +3,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
-import logo from './logo.svg';
 import './App.css';
+import HeaderImage from './header.jpg';
+import BusinessOwnerImage from './business-owner.jpg';
+import RelaxImage from './relax.jpg';
+import MountedImage from './mounted.jpg';
+import StandingImage from './standing.jpg';
 
 const EDMUND_GRAY = '#e1e3ea';
 
@@ -63,6 +68,9 @@ function App() {
   return (
     <Router>
       <Switch>
+      <Route exact path="/">
+        <Redirect to="/earn" />
+      </Route>
         <Route exact path="/earn">
           <Earn />
         </Route>
@@ -84,9 +92,8 @@ const Earn = () => {
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        backgroundImage: 'url("https://media.discordapp.net/attachments/718995649550352689/719031866082197544/city-meal-food-produce-usa-market-544027-pxhere.com_2.jpg?width=1404&height=936")',
+        backgroundImage: `url(${HeaderImage})`,
         height: '450px',
-        backgroundColor: 'blue',
         padding: '0px 24px',
         display: 'flex',
         flexDirection:  'column'
@@ -105,14 +112,14 @@ const Earn = () => {
           text={'Increase your business revenue by placing digital advertisements in your retail space, with no disruption.'}
           button={{text: 'Join Us'}}
           dir={'left'}
-          picture={<img style={{width: '45%', height: 'auto'}} src="https://media.discordapp.net/attachments/718995649550352689/719219692417581056/wallpaperflare.com_wallpaper_1.jpg?width=936&height=936" />}
+          picture={<img style={{width: '45%', height: 'auto'}} src={BusinessOwnerImage} />}
         />
         <MidSection
           header={'No work involved, just a bit of your space.'}
           text={'We will source advertisements and parts necessary to display ads in your space. Earn up to 80% of the ad revenue.'}
           button={{text: 'Learn More'}}
           dir={'right'}
-          picture={<img style={{width: '45%', height: 'auto'}} src="https://cdn.discordapp.com/attachments/718995649550352689/719220796039626752/Untitled_3.jpg" />}
+          picture={<img style={{width: '45%', height: 'auto'}} src={RelaxImage} />}
         />
       </section>
       <section style={{padding: '63px 38px'}}>
@@ -134,14 +141,14 @@ const Earn = () => {
             <TH>One-time Installation</TH>
           </tr>
           <tr>
-            <TD><img src="https://media.discordapp.net/attachments/718995649550352689/719380895911641150/hanging.jpg?width=936&height=936" style={{height: '200px', width: 'auto'}} /></TD>
+            <TD><img src={MountedImage} style={{height: '200px', width: 'auto'}} /></TD>
             <TD><div>Mounted digital display. We have different dimensions to fit in a variety of spaces.</div></TD>
             <TD $style={{textAlign: 'center', width: '200px'}}>80% of ad revenue</TD>
             <TD $style={{textAlign: 'center', width: '200px'}}>$5/mo.</TD>
             <TD $style={{textAlign: 'center', width: '200px'}}>$260-$460*</TD>
           </tr>
           <tr>
-            <TD><img src="https://media.discordapp.net/attachments/718995649550352689/719378446198767676/standing.jpg?width=936&height=936" style={{height: '200px', width: 'auto'}} /></TD>
+            <TD><img src={StandingImage} style={{height: '200px', width: 'auto'}} /></TD>
             <TD><div>Free-standing digital display. This gorgeous free standing display will enhance the appearance of your retail space.</div></TD>
             <TD colspan="3" $style={{textAlign: 'center'}}>Coming soon</TD>
           </tr>

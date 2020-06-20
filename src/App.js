@@ -66,7 +66,7 @@ const MidSection = (props) => {
 
 function App() {
   return (
-    <Router basename="/de-landing">
+    <Router>
       <Switch>
       <Route exact path="/">
         <Redirect to="/earn" />

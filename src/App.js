@@ -13,6 +13,7 @@ import BusinessOwnerImage from './business-owner.jpg';
 import RelaxImage from './relax.jpg';
 import MountedImage from './mounted.jpg';
 import StandingImage from './standing.jpg';
+import Logo from './vector_logo.png';
 
 const EDMUND_GRAY = '#e1e3ea';
 const MIDDLE_BLUE_GREEN = '#ffc6b7';
@@ -98,12 +99,12 @@ const Earn = () => {
         backgroundSize: 'cover',
         backgroundImage: `url(${HeaderImage})`,
         height: '450px',
-        padding: '0px 24px',
+        padding: '0px 150px',
         display: 'flex',
         flexDirection:  'column'
       }}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100px'}}>
-          <div style={{color: 'white', fontSize: '25px', fontWeight: 500, lineHeight: '36px'}}>Vector Advertise</div>
+          <div style={{color: 'white', fontSize: '25px', fontWeight: 500, lineHeight: '36px'}}><img style={{marginTop: '50px', width: '200px', height: 'auto'}} src={Logo} /></div>
         </div>
         <div style={{width: '450px', display: 'flex', justifyContent: 'center', flexDirection: 'column', flexGrow: 1}}>
           <div style={{color: 'white', fontSize: '45px', fontWeight: 500, marginBottom: '32px'}}>Make your retail space work for you.</div>

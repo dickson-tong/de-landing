@@ -15,6 +15,9 @@ import MountedImage from './mounted.jpg';
 import StandingImage from './standing.jpg';
 
 const EDMUND_GRAY = '#e1e3ea';
+const MIDDLE_BLUE_GREEN = '#ffc6b7';
+const GREEN_SHEEN = '#8BB8A8';
+const PINK_LACE = '#FFD5FF';
 
 const TH = (props) => {
   return (
@@ -46,17 +49,18 @@ const Button = (props) => {
     <button {...props} style={{
       border: 'none',
       padding: '19px 32px', backgroundColor: isHover ? '#bfb1c4' : EDMUND_GRAY, cursor: 'pointer', boxShadow: 'none', textShadow: 'none', outline: 'none',
+      width: '150px'
     }} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>{props.children}</button>
   );
 };
 
 const MidSection = (props) => {
-  const {dir, picture, header, text, button} = props;
+  const {dir, picture, header, text, button, color} = props;
   return (
-    <section style={{justifyContent: 'space-between', backgroundColor: 'white', padding: '63px 38px', display: 'flex', flexDirection: dir === 'left' ? 'row' : 'row-reverse'}}>
+    <section style={{justifyContent: 'space-between', backgroundColor: color, padding: '63px 150px', display: 'flex', flexDirection: dir === 'left' ? 'row' : 'row-reverse'}}>
       {picture}
-      <div style={{width: '400px'}}>
-        <div style={{width: '300px', marginBottom: '16px', fontSize: '45px', fontWeight: 500, lineHeight: '55px', color: 'black'}}>{header}</div>
+      <div style={{width: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+        <div style={{width: '350px', marginBottom: '16px', fontSize: '45px', fontWeight: 500, lineHeight: '55px', color: 'black'}}>{header}</div>
         <div style={{marginBottom: '16px', fontSize: '16px', fontWeight: 300, color: 'black'}}>{text}</div>
         <Button>{button.text}</Button>
       </div>
@@ -99,7 +103,7 @@ const Earn = () => {
         flexDirection:  'column'
       }}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100px'}}>
-          <div style={{color: 'white', fontSize: '25px', fontWeight: 500, lineHeight: '36px'}}>Placeholder</div>
+          <div style={{color: 'white', fontSize: '25px', fontWeight: 500, lineHeight: '36px'}}>Vector Advertise</div>
         </div>
         <div style={{width: '450px', display: 'flex', justifyContent: 'center', flexDirection: 'column', flexGrow: 1}}>
           <div style={{color: 'white', fontSize: '45px', fontWeight: 500, marginBottom: '32px'}}>Make your retail space work for you.</div>
@@ -113,6 +117,7 @@ const Earn = () => {
           button={{text: 'Join Us'}}
           dir={'left'}
           picture={<img style={{width: '45%', height: 'auto'}} src={BusinessOwnerImage} />}
+          color={'white'}
         />
         <MidSection
           header={'No work involved, just a bit of your space.'}
@@ -120,9 +125,10 @@ const Earn = () => {
           button={{text: 'Learn More'}}
           dir={'right'}
           picture={<img style={{width: '45%', height: 'auto'}} src={RelaxImage} />}
+          color={MIDDLE_BLUE_GREEN}
         />
       </section>
-      <section style={{padding: '63px 38px'}}>
+      <section style={{padding: '63px 150px', backgroundColor: 'white'}}>
         <div style={{width: '400px'}}>
           <div style={{fontSize: '45px', color: 'black', marginBottom: '16px'}}>Plans</div>
           <div style={{fontSize: '16px', color: 'black', marginBottom: '16px'}}>Find the plan that works best for you business.</div>

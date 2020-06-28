@@ -6,6 +6,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
+import emailjs from "emailjs-com";
 
 import "./App.css";
 import HeaderImage from "./header.jpg";
@@ -15,16 +16,16 @@ import MountedImage from "./mounted.jpg";
 import StandingImage from "./standing.jpg";
 import Logo from "./vector_logo.png";
 
-const EDMUND_GRAY = "#e1e3ea";
-const MIDDLE_BLUE_GREEN = "#ffc6b7";
+const PRIMARY_COLOR = "#ffc6b7";
 const PAGE_PADDING = "30px";
+const SECONDARY_COLOR = "#efefef";
 
 const TH = (props) => {
   return (
     <th
       style={{
-        backgroundColor: EDMUND_GRAY,
-        border: `1px ${EDMUND_GRAY} solid`,
+        backgroundColor: SECONDARY_COLOR,
+        border: `1px ${SECONDARY_COLOR} solid`,
         padding: "6px",
         fontSize: "20px",
       }}
@@ -39,7 +40,7 @@ const TD = (props) => {
     <td
       {...props}
       style={{
-        border: `1px ${EDMUND_GRAY} solid`,
+        border: `1px ${SECONDARY_COLOR} solid`,
         padding: "6px",
         fontSize: "20px",
         ...props.$style,
@@ -69,7 +70,7 @@ const Button = (props) => {
       style={{
         border: "none",
         padding: "19px 32px",
-        backgroundColor: isHover ? "#bfb1c4" : EDMUND_GRAY,
+        backgroundColor: isHover ? "#bfb1c4" : "#efefef",
         cursor: "pointer",
         boxShadow: "none",
         textShadow: "none",
@@ -159,6 +160,41 @@ function App() {
   );
 }
 
+const Form = () => {
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "zoho",
+        "template_O4tPI8jh",
+        e.target,
+        "user_DpGYhD06hYHY0GLXd4G8Z"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  }
+
+  return (
+    <form className="contact-form" onSubmit={sendEmail}>
+      <input type="hidden" name="contact_number" />
+      <label>Name</label>
+      <input type="text" name="user_name" />
+      <label>Email</label>
+      <input type="email" name="user_email" />
+      <label>Message</label>
+      <textarea name="message" />
+      <input type="submit" value="Send" />
+    </form>
+  );
+};
+
 const Earn = () => {
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -237,7 +273,7 @@ const Earn = () => {
           picture={
             <img style={{ width: "80%", height: "auto" }} src={RelaxImage} />
           }
-          color={MIDDLE_BLUE_GREEN}
+          color={PRIMARY_COLOR}
         />
       </section>
       <section style={{ padding: "63px 150px", backgroundColor: "white" }}>
@@ -251,6 +287,12 @@ const Earn = () => {
             style={{ fontSize: "16px", color: "black", marginBottom: "16px" }}
           >
             Find the plan that works best for you business.
+          </div>
+        </div>
+
+        <div className="container">
+          <div className="row">
+            <div className="col"></div>
           </div>
         </div>
 
@@ -313,13 +355,15 @@ const Earn = () => {
           with you space.
         </div>
       </section>
-      <section style={{ padding: "63px 38px" }}>contact section</section>
+      <section style={{ padding: "63px 38px", backgroundColor: PRIMARY_COLOR }}>
+        <Form />
+      </section>
       <footer
         style={{
           padding: "40px",
           display: "flex",
           justifyContent: "space-between",
-          backgroundColor: "#e1e3ea",
+          backgroundColor: "#ffeab7",
         }}
       >
         <div>Slogan</div>

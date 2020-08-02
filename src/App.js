@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,6 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import emailjs from "emailjs-com";
+import { Modal } from "react-bootstrap";
 
 import "./App.css";
 import HeaderImage from "./header.jpg";
@@ -160,7 +161,22 @@ function App() {
   );
 }
 
-const Form = () => {
+const AppModal = ({ isVisible, title, body, footer, onClose }) => {
+  return (
+    <Modal show={isVisible} onHide={onClose} centered>
+      {title && (
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+      )}
+      {body && <Modal.Body>{body}</Modal.Body>}
+    </Modal>
+  );
+};
+
+const Form = ({ onFormSuccess, onFormFailure }) => {
+  const formElem = useRef(null);
+
   function sendEmail(e) {
     e.preventDefault();
 
@@ -173,29 +189,89 @@ const Form = () => {
       )
       .then(
         (result) => {
-          console.log(result.text);
+          onFormSuccess();
+          formElem.current.reset();
         },
         (error) => {
-          console.log(error.text);
+          onFormFailure();
         }
       );
   }
 
   return (
-    <form className="contact-form" onSubmit={sendEmail}>
-      <input type="hidden" name="contact_number" />
-      <label>Name</label>
-      <input type="text" name="user_name" />
-      <label>Email</label>
-      <input type="email" name="user_email" />
-      <label>Message</label>
-      <textarea name="message" />
-      <input type="submit" value="Send" />
+    <form
+      className="contact-form"
+      onSubmit={sendEmail}
+      style={{ display: "flex", flexDirection: "column", width: "300px" }}
+      ref={formElem}
+    >
+      <div class="form-group">
+        <label for="nameInput">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="user_name"
+          id="nameInput"
+        />
+      </div>
+      <div class="form-group">
+        <label for="emailInput">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          name="user_email"
+          id="emailInput"
+        />
+      </div>
+      <div class="form-group">
+        <label for="phoneInput">Phone number (optional)</label>
+        <input
+          type="text"
+          class="form-control"
+          name="phone_number"
+          id="phoneInput"
+        />
+      </div>
+      <div class="form-group">
+        <label for="messageInput">Message</label>
+        <textarea class="form-control" name="message" id="messageInput" />
+      </div>
+      <button
+        type="submit"
+        class="btn"
+        style={{ backgroundColor: SECONDARY_COLOR }}
+      >
+        Send
+      </button>
     </form>
   );
 };
 
 const Earn = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalTitle, setModalTitle] = useState(null);
+  const [modalBody, setModalBody] = useState(null);
+
+  const onModalClose = () => {
+    setIsModalVisible(false);
+    setModalTitle(null);
+    setModalBody(null);
+  };
+
+  const onFormSuccess = () => {
+    setIsModalVisible(true);
+    setModalTitle("Success");
+    setModalBody(
+      "Your message has been submitted successfully. We'll be in touch soon!"
+    );
+  };
+
+  const onFormFailure = () => {
+    setIsModalVisible(true);
+    setModalTitle("Message was unsuccessful");
+    setModalBody("Please try again.");
+  };
+
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <div
@@ -356,7 +432,10 @@ const Earn = () => {
         </div>
       </section>
       <section style={{ padding: "63px 38px", backgroundColor: PRIMARY_COLOR }}>
-        <Form />
+        <div style={{ fontSize: "45px", color: "black", marginBottom: "16px" }}>
+          Contact Us
+        </div>
+        <Form onFormFailure={onFormFailure} onFormSuccess={onFormSuccess} />
       </section>
       <footer
         style={{
@@ -374,6 +453,12 @@ const Earn = () => {
           <div>Social Media Placeholder</div>
         </div>
       </footer>
+      <AppModal
+        isVisible={isModalVisible}
+        title={modalTitle}
+        body={modalBody}
+        onClose={onModalClose}
+      />
     </div>
   );
 };

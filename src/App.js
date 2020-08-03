@@ -287,7 +287,7 @@ const Earn = () => {
                 }}
                 onClick={scrollToContactUs}
               >
-                Learn More.
+                Learn More
               </div>
             </div>
           </div>

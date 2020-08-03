@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from "react-router-dom";
 import emailjs from "emailjs-com";
@@ -15,52 +14,15 @@ import BusinessOwnerImage from "./business-owner.jpg";
 import RelaxImage from "./relax.jpg";
 import MountedImage from "./mounted.jpg";
 import StandingImage from "./standing.jpg";
+import TabletImage from "./tablet.jpg";
 import Logo from "./vector_logo.png";
 
 const PRIMARY_COLOR = "#ffc6b7";
-const PAGE_PADDING = "30px";
+const PAGE_PADDING = "15px";
 const SECONDARY_COLOR = "#efefef";
+const SECTION_VERTICAL_PADDING = "32px";
 
-const TH = (props) => {
-  return (
-    <th
-      style={{
-        backgroundColor: SECONDARY_COLOR,
-        border: `1px ${SECONDARY_COLOR} solid`,
-        padding: "6px",
-        fontSize: "20px",
-      }}
-    >
-      {props.children}
-    </th>
-  );
-};
-
-const TD = (props) => {
-  return (
-    <td
-      {...props}
-      style={{
-        border: `1px ${SECONDARY_COLOR} solid`,
-        padding: "6px",
-        fontSize: "20px",
-        ...props.$style,
-      }}
-    >
-      {props.children}
-    </td>
-  );
-};
-
-const MenuItem = (props) => {
-  //replace with link
-  const { location } = props;
-  return (
-    <Link to={location} style={{ marginRight: "12px", color: "white" }}>
-      {props.children}
-    </Link>
-  );
-};
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
 const Button = (props) => {
   const [isHover, setHover] = useState(false);
@@ -78,6 +40,7 @@ const Button = (props) => {
         outline: "none",
         width: "160px",
         fontSize: "18px",
+        marginBottom: "16px",
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -88,52 +51,55 @@ const Button = (props) => {
 };
 
 const MidSection = (props) => {
-  const { dir, picture, header, text, button, color } = props;
+  const { dir, picture, header, text, button, color, onClick } = props;
   const pictureOrderClass = dir === "left" ? "order-1" : "order-2";
   const textOrderClass = dir === "left" ? "order-2" : "order-1";
   return (
     <section
       style={{
-        justifyContent: "space-between",
         backgroundColor: color,
-        padding: `63px ${PAGE_PADDING}`,
-        display: "flex",
-        flexDirection: dir === "left" ? "row" : "row-reverse",
+        paddingTop: SECTION_VERTICAL_PADDING,
+        paddingBottom: SECTION_VERTICAL_PADDING,
       }}
-      className="container-fluid"
     >
-      <div className="row">
-        <div className={`col-md-6 ${pictureOrderClass}`}>{picture}</div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-          className={`col-md-6 ${textOrderClass}`}
-        >
-          <div
-            style={{
-              marginBottom: "16px",
-              fontSize: "45px",
-              fontWeight: 500,
-              lineHeight: "55px",
-              color: "black",
-            }}
-          >
-            {header}
+      <div className="container">
+        <div className="row">
+          <div className={`col-md-6 ${pictureOrderClass}`}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {picture}
+            </div>
           </div>
           <div
             style={{
-              marginBottom: "16px",
-              fontSize: "16px",
-              fontWeight: 300,
-              color: "black",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
             }}
+            className={`col-md-6 ${textOrderClass}`}
           >
-            {text}
+            <div
+              style={{
+                marginBottom: "16px",
+                fontSize: "45px",
+                fontWeight: 500,
+                lineHeight: "55px",
+                color: "black",
+              }}
+            >
+              {header}
+            </div>
+            <div
+              style={{
+                marginBottom: "16px",
+                fontSize: "16px",
+                fontWeight: 300,
+                color: "black",
+              }}
+            >
+              {text}
+            </div>
+            <Button onClick={onClick}>{button.text}</Button>
           </div>
-          <Button>{button.text}</Button>
         </div>
       </div>
     </section>
@@ -151,11 +117,8 @@ function App() {
           <Earn />
         </Route>
         <Route exact path="/advertise">
-          <Advertise />
+          <div>advertise</div>
         </Route>
-        <Route></Route>
-        <Route></Route>
-        <Route></Route>
       </Switch>
     </Router>
   );
@@ -202,7 +165,7 @@ const Form = ({ onFormSuccess, onFormFailure }) => {
     <form
       className="contact-form"
       onSubmit={sendEmail}
-      style={{ display: "flex", flexDirection: "column", width: "300px" }}
+      style={{ display: "flex", flexDirection: "column", maxWidth: "300px" }}
       ref={formElem}
     >
       <div class="form-group">
@@ -251,6 +214,9 @@ const Earn = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState(null);
   const [modalBody, setModalBody] = useState(null);
+  const contactUsContent = useRef(null);
+
+  const scrollToContactUs = () => scrollToRef(contactUsContent);
 
   const onModalClose = () => {
     setIsModalVisible(false);
@@ -276,51 +242,55 @@ const Earn = () => {
     <div style={{ height: "100%", width: "100%" }}>
       <div
         style={{
-          backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundImage: `url(${HeaderImage})`,
-          height: "450px",
+          height: "auto",
           padding: `0px ${PAGE_PADDING}`,
           display: "flex",
           flexDirection: "column",
           width: "100%",
         }}
-        className="container-fluid"
       >
-        <div
-          style={{
-            color: "white",
-            fontSize: "25px",
-            fontWeight: 500,
-            lineHeight: "36px",
-            marginBottom: "50px",
-          }}
-          className="row"
-        >
-          <div className="col">
-            <img
-              style={{ marginTop: "50px", height: "auto", width: "200px" }}
-              src={Logo}
-            />
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <img
+                src={Logo}
+                style={{ height: "100px", width: "auto", marginTop: 50 }}
+              />
+            </div>
           </div>
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: "45px",
-            fontWeight: 500,
-            marginBottom: "32px",
-          }}
-          clasName="row"
-        >
-          <div className="col-7">Make your retail space work for you.</div>
-        </div>
-        <div
-          style={{ color: "white", textDecoration: "underline" }}
-          className="row"
-        >
-          <div className="col">Learn More</div>
+          <div class="row">
+            <div class="col-sm">
+              <div
+                style={{
+                  color: "white",
+                  fontSize: "30px",
+                  fontWeight: 500,
+                  marginTop: 80,
+                  marginBottom: 50,
+                }}
+              >
+                Make your retail space work for you
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div
+                style={{
+                  color: "white",
+                  textDecoration: "underline",
+                  marginBottom: 100,
+                  cursor: "pointer",
+                }}
+                onClick={scrollToContactUs}
+              >
+                Learn More.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <section>
@@ -338,6 +308,7 @@ const Earn = () => {
             />
           }
           color={"white"}
+          onClick={scrollToContactUs}
         />
         <MidSection
           header={"No work involved, just a bit of your space."}
@@ -350,92 +321,125 @@ const Earn = () => {
             <img style={{ width: "80%", height: "auto" }} src={RelaxImage} />
           }
           color={PRIMARY_COLOR}
+          onClick={scrollToContactUs}
         />
       </section>
-      <section style={{ padding: "63px 150px", backgroundColor: "white" }}>
-        <div style={{ width: "400px" }}>
-          <div
-            style={{ fontSize: "45px", color: "black", marginBottom: "16px" }}
-          >
-            Plans
-          </div>
-          <div
-            style={{ fontSize: "16px", color: "black", marginBottom: "16px" }}
-          >
-            Find the plan that works best for you business.
-          </div>
-        </div>
-
-        <div className="container">
-          <div className="row">
-            <div className="col"></div>
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            marginBottom: "16px",
-            justifyContent: "space-between",
-            width: "500px",
-          }}
-        ></div>
-
-        <table style={{ borderCollapse: "collapse", marginBottom: "32px" }}>
-          <tr>
-            <TH></TH>
-            <TH>Type</TH>
-            <TH>You Keep</TH>
-            <TH>Maintenance Cost</TH>
-            <TH>One-time Installation</TH>
-          </tr>
-          <tr>
-            <TD>
-              <img
-                src={MountedImage}
-                style={{ height: "200px", width: "auto" }}
-              />
-            </TD>
-            <TD>
-              <div>
-                Mounted digital display. We have different dimensions to fit in
-                a variety of spaces.
+      <section
+        style={{
+          paddingTop: SECTION_VERTICAL_PADDING,
+          paddingBottom: SECTION_VERTICAL_PADDING,
+        }}
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div
+                style={{
+                  fontSize: "45px",
+                  color: "black",
+                  marginBottom: "16px",
+                }}
+              >
+                Plans
               </div>
-            </TD>
-            <TD $style={{ textAlign: "center", width: "200px" }}>
-              80% of ad revenue
-            </TD>
-            <TD $style={{ textAlign: "center", width: "200px" }}>$5/mo.</TD>
-            <TD $style={{ textAlign: "center", width: "200px" }}>$260-$460*</TD>
-          </tr>
-          <tr>
-            <TD>
-              <img
-                src={StandingImage}
-                style={{ height: "200px", width: "auto" }}
-              />
-            </TD>
-            <TD>
-              <div>
-                Free-standing digital display. This gorgeous free standing
-                display will enhance the appearance of your retail space.
+              <div
+                style={{
+                  fontSize: "16px",
+                  color: "black",
+                  marginBottom: "16px",
+                }}
+              >
+                Find the plan that works best for you business.
               </div>
-            </TD>
-            <TD colspan="3" $style={{ textAlign: "center" }}>
-              Coming soon
-            </TD>
-          </tr>
-        </table>
-        <div style={{ color: "gray", fontSize: "12px" }}>
-          * We will work with you to find the display size that fits the best
-          with you space.
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img
+                  src={TabletImage}
+                  style={{
+                    height: "200px",
+                    width: "auto",
+                  }}
+                />
+              </div>
+              <div style={{ fontSize: "24px", fontWeight: 700 }}>Tablet</div>
+              <hr />
+              <div>
+                Tablet that can placed on a counter or mounted on a wall.
+              </div>
+              <hr />
+              <div>You keep</div>
+              <div style={{ fontSize: "32px", fontWeight: 700 }}>80%</div>
+              <div>of ad revenue</div>
+              <hr />
+              <div>$5/mo. Maintenance</div>
+              <div>$60 upfront cost</div>
+            </div>
+            <div class="col-sm-4">
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img
+                  src={MountedImage}
+                  style={{ height: "200px", width: "auto" }}
+                />
+              </div>
+              <div style={{ fontSize: "24px", fontWeight: 700 }}>Mounted</div>
+              <hr />
+              <div>
+                We have different dimensions to fit in a variety of spaces.
+              </div>
+              <hr />
+              <div>More information coming soon!</div>
+            </div>
+            <div class="col-sm-4">
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img
+                  src={StandingImage}
+                  style={{ height: "200px", width: "auto" }}
+                />
+              </div>
+              <div style={{ fontSize: "24px", fontWeight: 700 }}>
+                Free standing
+              </div>
+              <hr />
+              <div>
+                This gorgeous free standing display will bring a modern feel to
+                your retail space.
+              </div>
+              <hr />
+              <div>More information coming soon!</div>
+            </div>
+          </div>
         </div>
       </section>
-      <section style={{ padding: "63px 38px", backgroundColor: PRIMARY_COLOR }}>
-        <div style={{ fontSize: "45px", color: "black", marginBottom: "16px" }}>
-          Contact Us
+      <section
+        style={{
+          backgroundColor: PRIMARY_COLOR,
+          paddingTop: SECTION_VERTICAL_PADDING,
+          paddingBottom: SECTION_VERTICAL_PADDING,
+        }}
+        ref={contactUsContent}
+      >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col">
+              <div
+                style={{
+                  fontSize: "45px",
+                  color: "black",
+                  marginBottom: "16px",
+                }}
+              >
+                Contact Us
+              </div>
+              <Form
+                onFormFailure={onFormFailure}
+                onFormSuccess={onFormSuccess}
+              />
+            </div>
+          </div>
         </div>
-        <Form onFormFailure={onFormFailure} onFormSuccess={onFormSuccess} />
       </section>
       <footer
         style={{
@@ -445,13 +449,7 @@ const Earn = () => {
           backgroundColor: "#ffeab7",
         }}
       >
-        <div>Slogan</div>
-        <div>
-          <div>About Us</div>
-          <div>Contact Us</div>
-          <div>Get Started</div>
-          <div>Social Media Placeholder</div>
-        </div>
+        <img style={{ height: "auto", width: "200px" }} src={Logo} />
       </footer>
       <AppModal
         isVisible={isModalVisible}
@@ -459,118 +457,6 @@ const Earn = () => {
         body={modalBody}
         onClose={onModalClose}
       />
-    </div>
-  );
-};
-
-const Advertise = () => {
-  return (
-    <div style={{ height: "100%" }}>
-      <div
-        style={{
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundImage:
-            'url("https://media.discordapp.net/attachments/718995649550352689/719031866082197544/city-meal-food-produce-usa-market-544027-pxhere.com_2.jpg?width=1404&height=936")',
-          height: "450px",
-          backgroundColor: "blue",
-          padding: "0px 24px",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            height: "100px",
-          }}
-        >
-          <div
-            style={{
-              color: "white",
-              fontSize: "25px",
-              fontWeight: 500,
-              lineHeight: "36px",
-            }}
-          >
-            Placeholder
-          </div>
-        </div>
-        <div
-          style={{
-            width: "450px",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            flexGrow: 1,
-          }}
-        >
-          <div
-            style={{
-              color: "white",
-              fontSize: "45px",
-              fontWeight: 500,
-              marginBottom: "32px",
-            }}
-          >
-            Make your retail space work for you.
-          </div>
-          <div style={{ color: "white", textDecoration: "underline" }}>
-            Learn More
-          </div>
-        </div>
-      </div>
-      <section>
-        <MidSection
-          header={"Advertise with us to increase your revenue"}
-          text={
-            "Increase your business revenue by placing digital advertisements in your retail space, with no disruption."
-          }
-          button={{ text: "Join Us" }}
-          dir={"left"}
-          picture={
-            <img
-              style={{ width: "45%", height: "auto" }}
-              src="https://media.discordapp.net/attachments/718995649550352689/719219692417581056/wallpaperflare.com_wallpaper_1.jpg?width=936&height=936"
-            />
-          }
-        />
-        <MidSection
-          header={"No work involved, just a bit of your space."}
-          text={
-            "We will source advertisements and parts necessary to display ads in your space. Earn up to 80% of the ad revenue."
-          }
-          button={{ text: "Learn More" }}
-          dir={"right"}
-          picture={
-            <img
-              style={{ width: "45%", height: "auto" }}
-              src="https://cdn.discordapp.com/attachments/718995649550352689/719220796039626752/Untitled_3.jpg"
-            />
-          }
-        />
-      </section>
-      <section style={{ padding: "63px 38px" }}>pricing</section>
-      <section style={{ padding: "63px 38px" }}>contact section</section>
-      <footer
-        style={{
-          padding: "40px",
-          display: "flex",
-          justifyContent: "space-between",
-          backgroundColor: "#e1e3ea",
-        }}
-      >
-        <div>Slogan</div>
-        <div>
-          <div>About Us</div>
-          <div>Contact Us</div>
-          <div>Get Started</div>
-          <div>Social Media Placeholder</div>
-        </div>
-      </footer>
     </div>
   );
 };

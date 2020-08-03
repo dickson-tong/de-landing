@@ -456,7 +456,13 @@ const Earn = () => {
           alignItems: "flex-start",
         }}
       >
-        <img style={{ height: "auto", width: "200px" }} src={Logo} />
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <img style={{ height: "auto", width: "200px" }} src={Logo} />
+            </div>
+          </div>
+        </div>
       </footer>
       <AppModal
         isVisible={isModalVisible}

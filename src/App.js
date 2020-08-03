@@ -65,7 +65,13 @@ const MidSection = (props) => {
       <div className="container">
         <div className="row">
           <div className={`col-md-6 ${pictureOrderClass}`}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+            >
               {picture}
             </div>
           </div>

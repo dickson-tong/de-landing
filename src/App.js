@@ -453,6 +453,7 @@ const Earn = () => {
           display: "flex",
           justifyContent: "space-between",
           backgroundColor: "#ffeab7",
+          alignItems: "flex-start",
         }}
       >
         <img style={{ height: "auto", width: "200px" }} src={Logo} />

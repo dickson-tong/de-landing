@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "emailjs-com";
+import { Modal } from "react-bootstrap";
 
 import Logo from "./vector_logo.png";
 import LocalIcon from "./local.jpg";
@@ -8,6 +9,19 @@ import LocalBusiness from "./local-business.jpg";
 
 const PRIMARY_COLOR = "#ffc6b7";
 const SECONDARY_COLOR = "#efefef";
+
+const AppModal = ({ isVisible, title, body, footer, onClose }) => {
+  return (
+    <Modal show={isVisible} onHide={onClose} centered>
+      {title && (
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+      )}
+      {body && <Modal.Body>{body}</Modal.Body>}
+    </Modal>
+  );
+};
 
 const Form = ({ onFormSuccess, onFormFailure }) => {
   const formElem = useRef(null);
@@ -97,6 +111,30 @@ const Form = ({ onFormSuccess, onFormFailure }) => {
 };
 
 export const Advertise = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalTitle, setModalTitle] = useState(null);
+  const [modalBody, setModalBody] = useState(null);
+
+  const onModalClose = () => {
+    setIsModalVisible(false);
+    setModalTitle(null);
+    setModalBody(null);
+  };
+
+  const onFormSuccess = () => {
+    setIsModalVisible(true);
+    setModalTitle("Success");
+    setModalBody(
+      "Your message has been submitted successfully. We'll be in touch soon!"
+    );
+  };
+
+  const onFormFailure = () => {
+    setIsModalVisible(true);
+    setModalTitle("Message was unsuccessful");
+    setModalBody("Please try again.");
+  };
+
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <section
@@ -156,7 +194,10 @@ export const Advertise = () => {
               </div>
             </div>
             <div className="col-md-6">
-              <Form />
+              <Form
+                onFormFailure={onFormFailure}
+                onFormSuccess={onFormSuccess}
+              />
             </div>
           </div>
         </div>
@@ -217,6 +258,12 @@ export const Advertise = () => {
           </div>
         </div>
       </footer>
+      <AppModal
+        isVisible={isModalVisible}
+        title={modalTitle}
+        body={modalBody}
+        onClose={onModalClose}
+      />
     </div>
   );
 };

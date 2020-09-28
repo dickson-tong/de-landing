@@ -16,6 +16,7 @@ import MountedImage from "./mounted.jpg";
 import StandingImage from "./standing.jpg";
 import TabletImage from "./tablet.jpg";
 import Logo from "./vector_logo.png";
+import { Advertise } from "./Advertise";
 
 const PRIMARY_COLOR = "#ffc6b7";
 const PAGE_PADDING = "15px";
@@ -123,7 +124,7 @@ function App() {
           <Earn />
         </Route>
         <Route exact path="/advertise">
-          <div>advertise</div>
+          <Advertise />
         </Route>
       </Switch>
     </Router>

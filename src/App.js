@@ -226,7 +226,8 @@ const Earn = () => {
   const scrollToContactUs = () => scrollToRef(contactUsContent);
 
   useEffect(() => {
-    window.gtag("send", "page_view", {
+    console.log(window.gtag);
+    window.gtag("event", "page_view", {
       page_location: window.location.href,
       page_path: window.location.pathname,
     });

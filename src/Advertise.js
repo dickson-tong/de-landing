@@ -116,7 +116,7 @@ export const Advertise = () => {
   const [modalBody, setModalBody] = useState(null);
 
   useEffect(() => {
-    window.gtag("send", "page_view", {
+    window.gtag("event", "page_view", {
       page_location: window.location.href,
       page_path: window.location.pathname,
     });

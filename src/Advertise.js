@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { Modal } from "react-bootstrap";
 
@@ -114,6 +114,13 @@ export const Advertise = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState(null);
   const [modalBody, setModalBody] = useState(null);
+
+  useEffect(() => {
+    window.gtag("send", "page_view", {
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+    });
+  }, []);
 
   const onModalClose = () => {
     setIsModalVisible(false);

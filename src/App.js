@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -224,6 +224,13 @@ const Earn = () => {
   const contactUsContent = useRef(null);
 
   const scrollToContactUs = () => scrollToRef(contactUsContent);
+
+  useEffect(() => {
+    window.gtag("send", "page_view", {
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+    });
+  }, []);
 
   const onModalClose = () => {
     setIsModalVisible(false);
